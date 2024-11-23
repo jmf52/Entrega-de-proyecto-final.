@@ -1,61 +1,44 @@
-const CAT_API_URL = 'https://api.thecatapi.com/v1/images/search';
-const DOG_API_URL = 'https://api.thedogapi.com/v1/images/search';
-const DOG_BREED_SEARCH_URL = 'https://api.thedogapi.com/v1/breeds/search';
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
 
-const randomCatBtn = document.getElementById('random-cat');
-const randomDogBtn = document.getElementById('random-dog');
-const searchBreedBtn = document.getElementById('search-breed');
-const breedInput = document.getElementById('breed-input');
-const imageContainer = document.getElementById('image-container');
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-async function fetchImage(url, params = '') {
-  try {
-    const response = await fetch(`${url}${params}`);
-    const data = await response.json();
-    return data[0]?.url || 'Image not found.';
-  } catch (error) {
-    console.error('Error fetching image:', error);
-    return 'Error fetching image.';
-  }
-}
+// Configuración de la base de datos MySQL
+const db = mysql.createConnection({
+  host: 'TU_HOST_DE_MYSQL', // PlanetScale u otro servicio
+  user: 'TU_USUARIO',
+  password: 'TU_CONTRASEÑA',
+  database: 'TU_BASE_DE_DATOS'
+});
 
-async function displayRandomCat() {
-  const imageUrl = await fetchImage(CAT_API_URL);
-  updateImage(imageUrl);
-}
+db.connect(err => {
+  if (err) throw err;
+  console.log('Conectado a MySQL');
+});
 
-async function displayRandomDog() {
-  const imageUrl = await fetchImage(DOG_API_URL);
-  updateImage(imageUrl);
-}
+// Ruta para agregar datos
+app.post('/usuarios', (req, res) => {
+  const { nombre, edad } = req.body;
+  const query = 'INSERT INTO usuarios (nombre, edad) VALUES (?, ?)';
+  db.query(query, [nombre, edad], (err, result) => {
+    if (err) throw err;
+    res.send('Usuario agregado');
+  });
+});
 
-async function searchDogBreed() {
-  const breed = breedInput.value.trim().toLowerCase();
-  if (!breed) return alert('Please enter a breed.');
-  
-  try {
-    const response = await fetch(`${DOG_BREED_SEARCH_URL}?q=${breed}`);
-    const data = await response.json();
-    if (data.length === 0) {
-      return updateImage('No breed found.');
-    }
-    const breedImage = data[0]?.reference_image_id;
-    if (breedImage) {
-      const imageUrl = `https://cdn2.thedogapi.com/images/${breedImage}.jpg`;
-      updateImage(imageUrl);
-    } else {
-      updateImage('No image available for this breed.');
-    }
-  } catch (error) {
-    console.error('Error searching breed:', error);
-    updateImage('Error searching breed.');
-  }
-}
+// Ruta para leer datos
+app.get('/usuarios', (req, res) => {
+  db.query('SELECT * FROM usuarios', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
 
-function updateImage(imageUrl) {
-  imageContainer.innerHTML = `<img src="${imageUrl}" alt="Animal Image">`;
-}
-
-randomCatBtn.addEventListener('click', displayRandomCat);
-randomDogBtn.addEventListener('click', displayRandomDog);
-searchBreedBtn.addEventListener('click', searchDogBreed);
+// Iniciar el servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
