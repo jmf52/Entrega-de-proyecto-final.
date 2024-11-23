@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cat & Dog Viewer</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Node.js + MySQL + GitHub Pages</title>
 </head>
 <body>
-  <header>
-    <h1>🐾 Cat & Dog Viewer</h1>
-  </header>
-  <main>
-    <div class="buttons">
-      <button id="random-cat">Get Random Cat</button>
-      <button id="random-dog">Get Random Dog</button>
-    </div>
-    <div class="search">
-      <input type="text" id="breed-input" placeholder="Search breed (e.g., husky)">
-      <button id="search-breed">Search Breed</button>
-    </div>
-    <div id="image-container">
-      <p>Click a button to see an image!</p>
-    </div>
-  </main>
-  <script src="script.js"></script>
+  <h1>Conexión con Backend en Node.js</h1>
+  <button id="guardar">Guardar Datos</button>
+  <button id="leer">Leer Datos</button>
+
+  <script>
+    const API_URL = 'https://TU_BACKEND_RENDER_O_RAILWAY_URL'; // Cambia esto por la URL del backend
+
+    // Guardar datos en la base de datos
+    document.getElementById('guardar').addEventListener('click', async () => {
+      const response = await fetch(`${API_URL}/usuarios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: 'Hugo', edad: 25 })
+      });
+      const result = await response.text();
+      alert(result);
+    });
+
+    // Leer datos desde la base de datos
+    document.getElementById('leer').addEventListener('click', async () => {
+      const response = await fetch(`${API_URL}/usuarios`);
+      const data = await response.json();
+      alert(`Datos: ${JSON.stringify(data)}`);
+    });
+  </script>
 </body>
 </html>
