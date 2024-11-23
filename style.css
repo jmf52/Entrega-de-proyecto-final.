@@ -1,0 +1,53 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f3f4f6;
+}
+
+header {
+  background-color: #0077cc;
+  color: white;
+  padding: 1rem 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  padding: 2rem;
+}
+
+.buttons, .search {
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #005da0;
+}
+
+input {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
