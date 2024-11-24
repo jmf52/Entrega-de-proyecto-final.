@@ -6,32 +6,51 @@ body {
     background-color: #f0f0f0;
 }
 
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+}
+
 .container {
+    margin: 2rem auto;
     max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
     padding: 10px 20px;
     margin: 10px;
-    font-size: 16px;
+    border: none;
     border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
-#image-container img {
+img {
     max-width: 100%;
-    margin-top: 20px;
+    height: auto;
+    margin-top: 1rem;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.history {
+    margin-top: 2rem;
+}
+
+.history h2 {
+    margin-bottom: 1rem;
+}
+
+.history img {
+    max-width: 150px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
