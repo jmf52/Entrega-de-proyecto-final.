@@ -7,24 +7,27 @@ const animalImage = document.getElementById('animalImage');
 const fetchAnimalImage = async (url) => {
     try {
         const response = await fetch(url);
+        
+        
         if (!response.ok) {
             throw new Error('Error al conectar con la API');
         }
+
+       
         const data = await response.json();
         let imageUrl;
 
         if (url.includes('cat')) {
-            
+     
             imageUrl = data[0]?.url;
-        } else {
-           
-            imageUrl = data?.message;
-        }
+     
+            imageUrl = data?.message; 
 
+     
         if (imageUrl) {
             animalImage.src = imageUrl;
-            animalImage.style.display = 'block';
-            saveToLocalStorage(imageUrl);
+            animalImage.style.display = 'block'; 
+            saveToLocalStorage(imageUrl); 
         } else {
             console.error('No se pudo obtener la URL de la imagen');
         }
