@@ -1,27 +1,58 @@
+
 const historyContainer = document.getElementById('historyContainer');
 const backButton = document.getElementById('backButton');
 
-const loadHistory = () => {
-    const history = JSON.parse(localStorage.getItem('imageHistory')) || [];
-    if (history.length === 0) {
-        const message = document.createElement('p');
-        message.textContent = "No hay imágenes en el historial.";
-        historyContainer.appendChild(message);
-    } else {
-        history.forEach(imageUrl => {
-            const imgElement = document.createElement('img');
-            imgElement.src = imageUrl;
-            imgElement.alt = "Imagen vista";
-            imgElement.classList.add('history-image');
-            historyContainer.appendChild(imgElement);
-        });
-    }
+
+const storedImages = JSON.parse(localStorage.getItem('viewedImages')) || [];
+
+
+function renderHistory() {
+    historyContainer.innerHTML = '';
+    storedImages.forEach((image, index) => {
+        const imageCard = document.createElement('div');
+        imageCard.className = 'image-card';
+
+        const imgElement = document.createElement('img');
+        imgElement.src = image;
+        imgElement.alt = `Imagen ${index + 1}`;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-btn';
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.onclick = () => deleteImage(index);
+
+        const downloadButton = document.createElement('button');
+        downloadButton.className = 'download-btn';
+        downloadButton.textContent = 'Descargar';
+        downloadButton.onclick = () => downloadImage(image);
+
+        imageCard.appendChild(imgElement);
+        imageCard.appendChild(deleteButton);
+        imageCard.appendChild(downloadButton);
+
+        historyContainer.appendChild(imageCard);
+    });
+}
+
+
+function deleteImage(index) {
+    storedImages.splice(index, 1);
+    localStorage.setItem('viewedImages', JSON.stringify(storedImages));
+    renderHistory();
+}
+
+
+function downloadImage(imageUrl) {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'imagen-favorita.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+backButton.onclick = () => {
+    window.location.href = 'index.html';
 };
 
-// Redirige a la página principal
-backButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
-});
-
-loadHistory();
-
+renderHistory();
