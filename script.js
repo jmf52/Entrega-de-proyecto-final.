@@ -1,28 +1,37 @@
-function getImage(type) {
-    let url = '';
-    
-    if (type === 'cat') {
-        url = 'https://api.thecatapi.com/v1/images/search';
-    } else if (type === 'dog') {
-        url = 'https://dog.ceo/api/breeds/image/random';
+const catButton = document.getElementById('catButton');
+const dogButton = document.getElementById('dogButton');
+const animalImage = document.getElementById('animalImage');
+const historyContainer = document.getElementById('historyContainer');
+
+const fetchAnimalImage = async (url) => {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        let imageUrl;
+        if (url.includes('cat')) {
+            imageUrl = data[0].url;
+        } else {
+            imageUrl = data.message;
+        }
+        animalImage.src = imageUrl;
+        animalImage.style.display = 'block';
+        addToHistory(imageUrl);
+    } catch (error) {
+        console.error('Error fetching animal image:', error);
     }
+};
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let imageUrl;
-            if (type === 'cat') {
-                imageUrl = data[0].url;
-            } else if (type === 'dog') {
-                imageUrl = data.message;
-            }
-            displayImage(imageUrl);
-        })
-        .catch(error => console.error('Error al obtener la imagen:', error));
-}
+const addToHistory = (imageUrl) => {
+    const imgElement = document.createElement('img');
+    imgElement.src = imageUrl;
+    historyContainer.appendChild(imgElement);
+};
 
+catButton.addEventListener('click', () => {
+    fetchAnimalImage('https://api.thecatapi.com/v1/images/search');
+});
 
-function displayImage(imageUrl) {
-    const container = document.getElementById('image-container');
-    container.innerHTML = `<img src="${imageUrl}" alt="Imagen de ${type}">`;
-}
+dogButton.addEventListener('click', () => {
+    fetchAnimalImage('https://dog.ceo/api/breeds/image/random');
+});
+
