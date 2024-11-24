@@ -1,7 +1,9 @@
 const catButton = document.getElementById('catButton');
 const dogButton = document.getElementById('dogButton');
+const toggleHistoryButton = document.getElementById('toggleHistoryButton');
 const animalImage = document.getElementById('animalImage');
 const historyContainer = document.getElementById('historyContainer');
+const historySection = document.getElementById('historySection');
 
 const fetchAnimalImage = async (url) => {
     try {
@@ -27,6 +29,10 @@ const addToHistory = (imageUrl) => {
     historyContainer.appendChild(imgElement);
 };
 
+const toggleHistory = () => {
+    historySection.classList.toggle('hidden');
+};
+
 catButton.addEventListener('click', () => {
     fetchAnimalImage('https://api.thecatapi.com/v1/images/search');
 });
@@ -34,4 +40,6 @@ catButton.addEventListener('click', () => {
 dogButton.addEventListener('click', () => {
     fetchAnimalImage('https://dog.ceo/api/breeds/image/random');
 });
+
+toggleHistoryButton.addEventListener('click', toggleHistory);
 
