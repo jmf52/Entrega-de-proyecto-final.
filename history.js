@@ -1,8 +1,7 @@
 const historyContainer = document.getElementById('historyContainer');
 const backButton = document.getElementById('backButton');
 
-
-const storedImages = JSON.parse(localStorage.getItem('imageHistory')) || [];
+const storedImages = JSON.parse(localStorage.getItem('viewedImages')) || [];
 
 function renderHistory() {
     historyContainer.innerHTML = '';
@@ -14,10 +13,9 @@ function renderHistory() {
         imgElement.src = image;
         imgElement.alt = `Imagen ${index + 1}`;
 
-     
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
-        deleteButton.textContent = 'Eliminar';
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i> Eliminar';
         deleteButton.onclick = () => deleteImage(index);
 
         imageCard.appendChild(imgElement);
@@ -27,17 +25,15 @@ function renderHistory() {
     });
 }
 
-
 function deleteImage(index) {
     storedImages.splice(index, 1);
-    localStorage.setItem('imageHistory', JSON.stringify(storedImages));
+    localStorage.setItem('viewedImages', JSON.stringify(storedImages));
     renderHistory();
 }
-
 
 backButton.onclick = () => {
     window.location.href = 'index.html';
 };
 
-
 renderHistory();
+
