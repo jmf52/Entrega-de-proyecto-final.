@@ -1,9 +1,7 @@
 const catButton = document.getElementById('catButton');
 const dogButton = document.getElementById('dogButton');
-const toggleHistoryButton = document.getElementById('toggleHistoryButton');
+const viewHistoryButton = document.getElementById('viewHistoryButton');
 const animalImage = document.getElementById('animalImage');
-const historyContainer = document.getElementById('historyContainer');
-const historySection = document.getElementById('historySection');
 
 const fetchAnimalImage = async (url) => {
     try {
@@ -17,20 +15,16 @@ const fetchAnimalImage = async (url) => {
         }
         animalImage.src = imageUrl;
         animalImage.style.display = 'block';
-        addToHistory(imageUrl);
+        saveToLocalStorage(imageUrl);
     } catch (error) {
         console.error('Error fetching animal image:', error);
     }
 };
 
-const addToHistory = (imageUrl) => {
-    const imgElement = document.createElement('img');
-    imgElement.src = imageUrl;
-    historyContainer.appendChild(imgElement);
-};
-
-const toggleHistory = () => {
-    historySection.classList.toggle('hidden');
+const saveToLocalStorage = (imageUrl) => {
+    let history = JSON.parse(localStorage.getItem('imageHistory')) || [];
+    history.push(imageUrl);
+    localStorage.setItem('imageHistory', JSON.stringify(history));
 };
 
 catButton.addEventListener('click', () => {
@@ -41,5 +35,6 @@ dogButton.addEventListener('click', () => {
     fetchAnimalImage('https://dog.ceo/api/breeds/image/random');
 });
 
-toggleHistoryButton.addEventListener('click', toggleHistory);
-
+viewHistoryButton.addEventListener('click', () => {
+    window.location.href = 'history.html';
+});
