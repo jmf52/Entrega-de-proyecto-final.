@@ -54,3 +54,13 @@ img {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.history-image {
+    display: inline-block;
+    margin: 5px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #333;
+}
