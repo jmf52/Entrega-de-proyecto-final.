@@ -1,6 +1,0 @@
-CREATE TABLE imagenes_vistas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  url_imagen VARCHAR(255) NOT NULL,
-  usuario_id INT,
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
