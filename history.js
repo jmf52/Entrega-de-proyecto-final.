@@ -1,9 +1,8 @@
-
 const historyContainer = document.getElementById('historyContainer');
 const backButton = document.getElementById('backButton');
 
 
-const storedImages = JSON.parse(localStorage.getItem('viewedImages')) || [];
+const storedImages = JSON.parse(localStorage.getItem('imageHistory')) || [];
 
 
 function renderHistory() {
@@ -16,11 +15,13 @@ function renderHistory() {
         imgElement.src = image;
         imgElement.alt = `Imagen ${index + 1}`;
 
+        
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.textContent = 'Eliminar';
         deleteButton.onclick = () => deleteImage(index);
 
+     
         const downloadButton = document.createElement('button');
         downloadButton.className = 'download-btn';
         downloadButton.textContent = 'Descargar';
@@ -37,7 +38,7 @@ function renderHistory() {
 
 function deleteImage(index) {
     storedImages.splice(index, 1);
-    localStorage.setItem('viewedImages', JSON.stringify(storedImages));
+    localStorage.setItem('imageHistory', JSON.stringify(storedImages));
     renderHistory();
 }
 
@@ -55,4 +56,6 @@ backButton.onclick = () => {
     window.location.href = 'index.html';
 };
 
+
 renderHistory();
+
