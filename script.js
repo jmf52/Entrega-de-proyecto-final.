@@ -17,7 +17,7 @@ const fetchAnimalImage = async (url) => {
         animalImage.style.display = 'block';
         saveToLocalStorage(imageUrl);
     } catch (error) {
-        console.error('Error fetching animal image:', error);
+        console.error('Error al obtener la imagen:', error);
     }
 };
 
