@@ -1,15 +1,14 @@
-
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    background: linear-gradient(to bottom, #e0f7fa, #80deea); /* Fondo con degradado */
     color: #333;
     text-align: center;
 }
 
 header {
-    background-color: #6c63ff;
+    background-color: #4db6ac;
     color: white;
     padding: 20px;
     margin-bottom: 20px;
@@ -25,9 +24,9 @@ header h1 {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 p {
@@ -43,20 +42,19 @@ p {
     border: 2px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
 }
 
 .card button {
     margin: 10px;
 }
 
-
 .image-box {
     margin-top: 20px;
     padding: 10px;
     border: 2px dashed #ccc;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
 }
 
 img {
@@ -64,7 +62,7 @@ img {
     height: auto;
     margin-top: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -76,7 +74,7 @@ img {
     padding: 10px;
     border: 2px solid #ddd;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
 }
 
 .history-box img {
@@ -93,6 +91,7 @@ button {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -100,12 +99,12 @@ button:hover {
 }
 
 .primary-btn {
-    background-color: #4CAF50;
+    background-color: #00796b;
     color: white;
 }
 
 .primary-btn:hover {
-    background-color: #45a049;
+    background-color: #004d40;
 }
 
 .secondary-btn {
@@ -120,7 +119,6 @@ button:hover {
 footer {
     margin-top: 20px;
     padding: 10px 0;
-    background-color: #6c63ff;
+    background-color: #4db6ac;
     color: white;
 }
-
