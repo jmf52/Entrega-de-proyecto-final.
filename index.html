@@ -1,35 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node.js + MySQL + GitHub Pages</title>
-</head>
-<body>
-  <h1>Conexión con Backend en Node.js</h1>
-  <button id="guardar">Guardar Datos</button>
-  <button id="leer">Leer Datos</button>
-
+  <title>Imágenes Vistas</title>
   <script>
-    const API_URL = 'https://TU_BACKEND_RENDER_O_RAILWAY_URL'; // Cambia esto por la URL del backend
+    // Función para guardar una imagen vista
+    async function guardarImagen() {
+      const usuarioId = 1;  // Este sería el ID del usuario (puedes cambiarlo)
+      const urlImagen = document.getElementById('imagenURL').value;  // URL de la imagen
 
-    // Guardar datos en la base de datos
-    document.getElementById('guardar').addEventListener('click', async () => {
-      const response = await fetch(`${API_URL}/usuarios`, {
+      const response = await fetch('http://localhost:3000/guardar-imagen', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre: 'Hugo', edad: 25 })
+        body: JSON.stringify({ url_imagen: urlImagen, usuario_id: usuarioId })
       });
-      const result = await response.text();
-      alert(result);
-    });
 
-    // Leer datos desde la base de datos
-    document.getElementById('leer').addEventListener('click', async () => {
-      const response = await fetch(`${API_URL}/usuarios`);
       const data = await response.json();
-      alert(`Datos: ${JSON.stringify(data)}`);
-    });
+      alert(data.message || 'Imagen guardada!');
+    }
+
+    // Función para obtener y mostrar las imágenes vistas por un usuario
+    async function mostrarImagenes() {
+      const usuarioId = 1;  // ID del usuario
+      const response = await fetch(`http://localhost:3000/imagenes-vistas/${usuarioId}`);
+      const images = await response.json();
+      
+      const listElement = document.getElementById('imagenes-list');
+      listElement.innerHTML = ''; // Limpiar la lista
+      images.forEach(img => {
+        const listItem = document.createElement('li');
+        const imgElement = document.createElement('img');
+        imgElement.src = img.url_imagen;
+        imgElement.alt = 'Imagen Vista';
+        imgElement.style.width = '100px';
+        listItem.appendChild(imgElement);
+        listElement.appendChild(listItem);
+      });
+    }
   </script>
+</head>
+<body>
+  <h1>Guardar y Ver Imágenes</h1>
+  <label for="imagenURL">URL de la imagen: </label>
+  <input type="text" id="imagenURL">
+  <button onclick="guardarImagen()">Guardar Imagen</button>
+  
+  <h2>Imágenes Vistas</h2>
+  <button onclick="mostrarImagenes()">Mostrar Imágenes Vistas</button>
+  <ul id="imagenes-list"></ul>
 </body>
 </html>
