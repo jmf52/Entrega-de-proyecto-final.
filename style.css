@@ -71,20 +71,11 @@ header {
     border-radius: 10px;
 }
 
-.delete-btn, .download-btn {
+.delete-btn {
     margin-top: 10px;
     padding: 5px 10px;
     font-size: 0.9rem;
     cursor: pointer;
-}
-
-.delete-btn {
     background-color: #e57373;
     color: white;
 }
-
-.download-btn {
-    background-color: #4caf50;
-    color: white;
-}
-
