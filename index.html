@@ -1,55 +1,59 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conexión con Backend</title>
+  <title>Guardar y Ver Imágenes</title>
 </head>
 <body>
-  <h1>Conexión con el Backend en Node.js</h1>
+  <h1>Guardar y Ver Imágenes</h1>
   
-  <h2>Guardar Datos</h2>
-  <form id="save-form">
-    <input type="text" id="data" placeholder="Escribe algo para guardar" required>
-    <button type="submit">Guardar</button>
+  <h2>Guardar Imagen</h2>
+  <form id="image-form">
+    <input type="url" id="image-url" placeholder="URL de la imagen" required>
+    <button type="submit">Guardar Imagen</button>
   </form>
 
-  <h2>Leer Datos Guardados</h2>
-  <button id="load-data">Cargar Datos</button>
-  <ul id="data-list"></ul>
+  <h2>Imágenes Guardadas</h2>
+  <button id="load-images">Ver Imágenes</button>
+  <div id="image-gallery"></div>
 
   <script>
-    
-    document.getElementById('save-form').addEventListener('submit', function (event) {
+
+    document.getElementById('image-form').addEventListener('submit', function (event) {
       event.preventDefault();
       
-      const data = document.getElementById('data').value;
+      const imageUrl = document.getElementById('image-url').value;
       
-      fetch('/save-data', {
+      fetch('/save-image', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data }),
+        body: JSON.stringify({ imageUrl }),
       })
       .then(response => response.json())
       .then(result => {
         alert(result.message);
-        document.getElementById('data').value = '';
+        document.getElementById('image-url').value = ''; 
       });
     });
 
-    document.getElementById('load-data').addEventListener('click', function () {
-      fetch('/get-data')
+    document.getElementById('load-images').addEventListener('click', function () {
+      fetch('/get-images')
         .then(response => response.json())
-        .then(data => {
-          const dataList = document.getElementById('data-list');
-          dataList.innerHTML = ''; 
+        .then(images => {
+          const gallery = document.getElementById('image-gallery');
+          gallery.innerHTML = ''; 
           
-          data.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item.data;
-            dataList.appendChild(li);
+          images.forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = 'Imagen guardada';
+            img.style.maxWidth = '200px';
+            img.style.margin = '10px';
+            gallery.appendChild(img);
           });
         });
     });
