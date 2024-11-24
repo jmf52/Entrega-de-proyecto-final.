@@ -1,4 +1,5 @@
 const historyContainer = document.getElementById('historyContainer');
+const backButton = document.getElementById('backButton');
 
 const loadHistory = () => {
     const history = JSON.parse(localStorage.getItem('imageHistory')) || [];
@@ -16,6 +17,11 @@ const loadHistory = () => {
         });
     }
 };
+
+// Redirige a la página principal
+backButton.addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
 
 loadHistory();
 
