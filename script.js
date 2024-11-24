@@ -1,58 +1,42 @@
 const catButton = document.getElementById('catButton');
 const dogButton = document.getElementById('dogButton');
-const viewHistoryButton = document.getElementById('viewHistoryButton');
-const animalImage = document.getElementById('animalImage');
+const imageContainer = document.getElementById('imageContainer');
 
 
-const fetchAnimalImage = async (url) => {
+function addToHistory(imageUrl) {
+    let viewedImages = JSON.parse(localStorage.getItem('viewedImages')) || [];
+    viewedImages.push(imageUrl);
+    localStorage.setItem('viewedImages', JSON.stringify(viewedImages));
+}
+
+
+function displayImage(imageUrl) {
+    imageContainer.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = imageUrl;
+    imgElement.alt = 'Animal';
+    imageContainer.appendChild(imgElement);
+}
+
+
+async function fetchImage(apiUrl) {
     try {
-        const response = await fetch(url);
-        
-        
-        if (!response.ok) {
-            throw new Error('Error al conectar con la API');
-        }
-
-       
+        const response = await fetch(apiUrl);
         const data = await response.json();
-        let imageUrl;
-
-        if (url.includes('cat')) {
-     
-            imageUrl = data[0]?.url;
-     
-            imageUrl = data?.message; 
-
-     
-        if (imageUrl) {
-            animalImage.src = imageUrl;
-            animalImage.style.display = 'block'; 
-            saveToLocalStorage(imageUrl); 
-        } else {
-            console.error('No se pudo obtener la URL de la imagen');
-        }
+        const imageUrl = data[0]?.url || data.message; 
+        displayImage(imageUrl);
+        addToHistory(imageUrl); 
     } catch (error) {
         console.error('Error al obtener la imagen:', error);
-        alert('Hubo un problema al cargar la imagen. Intenta de nuevo.');
+        alert('Hubo un problema al cargar la imagen. Inténtalo de nuevo.');
     }
-};
-
-
-const saveToLocalStorage = (imageUrl) => {
-    let history = JSON.parse(localStorage.getItem('imageHistory')) || [];
-    history.push(imageUrl);
-    localStorage.setItem('imageHistory', JSON.stringify(history));
-};
+}
 
 
 catButton.addEventListener('click', () => {
-    fetchAnimalImage('https://api.thecatapi.com/v1/images/search');
+    fetchImage('https://api.thecatapi.com/v1/images/search'); /
 });
 
 dogButton.addEventListener('click', () => {
-    fetchAnimalImage('https://dog.ceo/api/breeds/image/random');
-});
-
-viewHistoryButton.addEventListener('click', () => {
-    window.location.href = 'history.html';
+    fetchImage('https://dog.ceo/api/breeds/image/random'); 
 });
