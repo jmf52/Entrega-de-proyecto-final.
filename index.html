@@ -1,18 +1,87 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cat & Dog API</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Cat & Dog Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+        .container {
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Cat & Dog Images</h1>
+    </header>
     <div class="container">
-        <h1>Generador de Imágenes de Gatos y Perros</h1>
-        <button onclick="getImage('cat')">Generar Imagen de Gato</button>
-        <button onclick="getImage('dog')">Generar Imagen de Perro</button>
-        <div id="image-container"></div>
+        <button id="catButton">Show a Cat</button>
+        <button id="dogButton">Show a Dog</button>
+        <div id="imageContainer">
+            <img id="animalImage" src="" alt="" style="display:none;">
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const catButton = document.getElementById('catButton');
+        const dogButton = document.getElementById('dogButton');
+        const animalImage = document.getElementById('animalImage');
+
+        const fetchAnimalImage = async (url) => {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (url.includes('cat')) {
+                    animalImage.src = data[0].url;
+                } else {
+                    animalImage.src = data.message;
+                }
+                animalImage.style.display = 'block';
+            } catch (error) {
+                console.error('Error fetching animal image:', error);
+            }
+        };
+
+        catButton.addEventListener('click', () => {
+            fetchAnimalImage('https://api.thecatapi.com/v1/images/search');
+        });
+
+        dogButton.addEventListener('click', () => {
+            fetchAnimalImage('https://dog.ceo/api/breeds/image/random');
+        });
+    </script>
 </body>
 </html>
