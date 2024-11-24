@@ -8,16 +8,22 @@
 </head>
 <body>
     <header>
-        <h1>Imágenes de Gatos y Perros</h1>
+        <h1>🐾 Imágenes de Gatos y Perros 🐾</h1>
     </header>
     <div class="container">
-        <button id="catButton">Mostrar un Gato</button>
-        <button id="dogButton">Mostrar un Perro</button>
-        <button id="viewHistoryButton">Ver Historial</button>
+        <p>¡Haz clic en los botones para ver imágenes adorables de gatos y perros!</p>
+        <div class="buttons">
+            <button id="catButton" class="primary-btn">Mostrar un Gato</button>
+            <button id="dogButton" class="primary-btn">Mostrar un Perro</button>
+        </div>
         <div id="imageContainer">
             <img id="animalImage" src="" alt="" style="display:none;">
         </div>
+        <button id="viewHistoryButton" class="secondary-btn">Ver Historial</button>
     </div>
+    <footer>
+        <p>Creado con ❤️ para amantes de los animales</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
