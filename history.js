@@ -15,13 +15,13 @@ function renderHistory() {
         imgElement.src = image;
         imgElement.alt = `Imagen ${index + 1}`;
 
-        
+  
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.textContent = 'Eliminar';
         deleteButton.onclick = () => deleteImage(index);
 
-     
+        
         const downloadButton = document.createElement('button');
         downloadButton.className = 'download-btn';
         downloadButton.textContent = 'Descargar';
@@ -51,6 +51,7 @@ function downloadImage(imageUrl) {
     link.click();
     document.body.removeChild(link);
 }
+
 
 backButton.onclick = () => {
     window.location.href = 'index.html';
