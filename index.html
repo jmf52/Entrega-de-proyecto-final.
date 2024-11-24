@@ -3,51 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imágenes Vistas</title>
-  <script>
-    // Función para guardar una imagen vista
-    async function guardarImagen() {
-      const usuarioId = 1;  // Este sería el ID del usuario (puedes cambiarlo)
-      const urlImagen = document.getElementById('imagenURL').value;  // URL de la imagen
-
-      const response = await fetch('http://localhost:3000/guardar-imagen', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url_imagen: urlImagen, usuario_id: usuarioId })
-      });
-
-      const data = await response.json();
-      alert(data.message || 'Imagen guardada!');
-    }
-
-    // Función para obtener y mostrar las imágenes vistas por un usuario
-    async function mostrarImagenes() {
-      const usuarioId = 1;  // ID del usuario
-      const response = await fetch(`http://localhost:3000/imagenes-vistas/${usuarioId}`);
-      const images = await response.json();
-      
-      const listElement = document.getElementById('imagenes-list');
-      listElement.innerHTML = ''; // Limpiar la lista
-      images.forEach(img => {
-        const listItem = document.createElement('li');
-        const imgElement = document.createElement('img');
-        imgElement.src = img.url_imagen;
-        imgElement.alt = 'Imagen Vista';
-        imgElement.style.width = '100px';
-        listItem.appendChild(imgElement);
-        listElement.appendChild(listItem);
-      });
-    }
-  </script>
+  <title>Conexión con Backend</title>
 </head>
 <body>
-  <h1>Guardar y Ver Imágenes</h1>
-  <label for="imagenURL">URL de la imagen: </label>
-  <input type="text" id="imagenURL">
-  <button onclick="guardarImagen()">Guardar Imagen</button>
+  <h1>Conexión con el Backend en Node.js</h1>
   
-  <h2>Imágenes Vistas</h2>
-  <button onclick="mostrarImagenes()">Mostrar Imágenes Vistas</button>
-  <ul id="imagenes-list"></ul>
+  <h2>Guardar Datos</h2>
+  <form id="save-form">
+    <input type="text" id="data" placeholder="Escribe algo para guardar" required>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <h2>Leer Datos Guardados</h2>
+  <button id="load-data">Cargar Datos</button>
+  <ul id="data-list"></ul>
+
+  <script>
+    
+    document.getElementById('save-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      
+      const data = document.getElementById('data').value;
+      
+      fetch('/save-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      })
+      .then(response => response.json())
+      .then(result => {
+        alert(result.message);
+        document.getElementById('data').value = '';
+      });
+    });
+
+    document.getElementById('load-data').addEventListener('click', function () {
+      fetch('/get-data')
+        .then(response => response.json())
+        .then(data => {
+          const dataList = document.getElementById('data-list');
+          dataList.innerHTML = ''; 
+          
+          data.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item.data;
+            dataList.appendChild(li);
+          });
+        });
+    });
+  </script>
 </body>
 </html>
