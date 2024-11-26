@@ -1,17 +1,21 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f8ff;
-    color: #333;
+    background: url('images/fondo.jpg') no-repeat center center fixed; /* Ruta a tu imagen de fondo */
+    background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+    color: #2c3e50;
     text-align: center;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #4caf50;
+    background-color: #34495e;
     color: white;
     padding: 20px;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 
@@ -21,34 +25,53 @@ header {
 
 .main-btn, .secondary-btn {
     margin: 10px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 1rem;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .main-btn {
-    background-color: #2196f3;
+    background-color: #3498db;
 }
 
 .secondary-btn {
-    background-color: #4caf50;
+    background-color: #2ecc71;
 }
 
 .main-btn:hover, .secondary-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
 }
 
 #animalImage {
     max-width: 90%;
     margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
@@ -62,41 +85,47 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .image-card {
-    background: linear-gradient(135deg, #f0f8ff, #dfe6e9);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #ffffff, #e4e9f7);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .image-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .image-card img {
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover img {
+    transform: scale(1.05);
 }
 
 .delete-btn {
     margin-top: 10px;
-    padding: 5px 10px;
+    padding: 8px 15px;
     font-size: 0.9rem;
     cursor: pointer;
-    background-color: #e57373;
+    background-color: #e74c3c;
     color: white;
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
 .delete-btn:hover {
-    background-color: #d32f2f;
-    transform: scale(1.05);
+    background-color: #c0392b;
+    transform: scale(1.1);
 }
 
